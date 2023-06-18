@@ -24,4 +24,3 @@ class Grid extends Component {
 
 //     App.jsx could render the dropdown menu as well as the Table Component (presentational component)
     
-    
