@@ -9,7 +9,8 @@ class Grid extends Component {
     this.state = {
       rows: 1,
       column: 1,
-      gridData: []
+      gridData: [],
+      color: '',
     };
   }
 
@@ -17,6 +18,7 @@ class Grid extends Component {
     const { rows, column } = this.state;
     const gridData = Array(rows).fill().map(() => Array(column).fill(""));
     this.setState({ gridData });
+    //created two different arrawys ( rows, column)
   };
 }
 
