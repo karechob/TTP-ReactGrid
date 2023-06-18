@@ -1,3 +1,2 @@
-import React, {Component, ReactPropTypes} from 'react';
-
+import {table, tableCell, tableRow} from "./components";
 
