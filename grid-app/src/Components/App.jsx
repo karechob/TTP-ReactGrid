@@ -9,8 +9,7 @@ class Grid extends Component {
     this.state = {
       rows: 1,
       column: 1,
-      gridData: [],
-      color: '',
+      gridData: []
     };
   }
 
@@ -18,12 +17,11 @@ class Grid extends Component {
     const { rows, column } = this.state;
     const gridData = Array(rows).fill().map(() => Array(column).fill(""));
     this.setState({ gridData });
-    //created two different arrawys ( rows, column)
   };
 }
 
 // App.jsx could have methods (bound event handler functions) on the class which will be passed down to children components via props (the children components, presentational components, will have event listeners that will fire off the bound event handler functions
 
-//  App.jsx could render the dropdown menu as well as the Table Component (presentational component)
+//     App.jsx could render the dropdown menu as well as the Table Component (presentational component)
     
     
