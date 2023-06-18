@@ -1,7 +1,7 @@
 /*
 remember that the format for writing jsx code is:
 1)IMPORT
-2)CREATE C;ASS
+2)CREATE CLASS
 3)RENDERING
 4)EXPORT
 */
