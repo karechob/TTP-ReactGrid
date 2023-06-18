@@ -1,6 +1,7 @@
 //App.jsx could maintain the state of the grid as well as the state of the selected color (stateful, class component)
 import React, {Component} from 'react'
 
+import React, { Component } from 'react';
 
 class Grid extends Component {
   constructor(props) {
