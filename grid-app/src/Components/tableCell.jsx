@@ -1,7 +1,7 @@
 /*
 remember that the format for writing jsx code is:
 1)IMPORT
-2)CREATE C;ASS
+2)CREATE CLASS
 3)RENDERING
 4)EXPORT
 */
@@ -11,7 +11,7 @@ remember that the format for writing jsx code is:
 import React, {Component, ReactPropTypes} from 'react';
 
 //createing class
-class Cell extends Component{
+class TableCell extends Component{
     constructor(props){ //creating and defining cell propType 
         super(props)  //this allows the cell to be interacted with
     }
@@ -25,4 +25,4 @@ class Cell extends Component{
 }
 
 //exporting
-export default Cell
+export default TableCell
