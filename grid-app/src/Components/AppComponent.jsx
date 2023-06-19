@@ -1,37 +1,34 @@
 import React, { Component } from 'react';
 import Table from './table';
-import tableRow from './tableRow'
+import TableRow from './tableRow';
 import TableCell from './tableCell';
-// import './App.css';
 
 class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      row:1, column:1,
-      gridData: [['']], // array representing the grid
-      selectedColor: '', // the selected color
+      rows: 1,
+      columns: 1,
+      gridData: [['']],
+      selectedColor: '',
     };
   }
 
   addRow = () => {
-    //prevState is before the state is altered
     this.setState(prevState => {
-      //here, gridData means before the grid is altered
-      const { gridData } = prevState;
-      const newRow = Array(gridData[0].length).fill(''); // Create a new row with empty cells
-      const updatedGridData = [...gridData, newRow]; // Add the new row to the gridData array
+      const { gridData, columns } = prevState;
+      const newRow = Array(columns).fill('');
+      const updatedGridData = [...gridData, newRow];
       return {
-        rows: prevState.rows+1, //this will add 1 to the array
-        gridData: updatedGridData, //since the before array has been changed, this will update the grid
+        gridData: updatedGridData,
       };
     });
   };
 
   addColumn = () => {
     this.setState(prevState => {
-      const { gridData } = prevState;
-      const updatedGridData = gridData.map(row => [...row, '']); // Add an empty cell to each row
+      const { gridData, rows } = prevState;
+      const updatedGridData = gridData.map(row => [...row, '']);
       return {
         gridData: updatedGridData,
       };
@@ -41,10 +38,9 @@ class AppComponent extends Component {
   removeRow = () => {
     this.setState(prevState => {
       const { gridData } = prevState;
-      if (gridData.length > 1 || prevState.rows>1) {
-        const updatedGridData = gridData.slice(0, -1); // Remove the last row from gridData
+      if (gridData.length > 1) {
+        const updatedGridData = gridData.slice(0, -1);
         return {
-          rows: prevState.rows-1, //This decreases the number of rows by 1
           gridData: updatedGridData,
         };
       }
@@ -56,7 +52,7 @@ class AppComponent extends Component {
     this.setState(prevState => {
       const { gridData } = prevState;
       if (gridData[0].length > 1) {
-        const updatedGridData = gridData.map(row => row.slice(0, -1)); // Remove the last column from each row
+        const updatedGridData = gridData.map(row => row.slice(0, -1));
         return {
           gridData: updatedGridData,
         };
@@ -65,33 +61,16 @@ class AppComponent extends Component {
     });
   };
 
-  selectColor = event => {
-    const selectedColor = event.target.value;
-    this.setState({ selectedColor });
-  };
-
-  changeCellColor = (rowIndex, cellIndex) => {
-    this.setState(prevState => {
-      const { gridData, selectedColor } = prevState;
-      const updatedGridData = [...gridData];
-      updatedGridData[rowIndex][cellIndex] = selectedColor;
-      return {
-        gridData: updatedGridData,
-      };
-    });
-  };
-
   render() {
-    const { gridData, selectedColor } = this.state;
+    const {gridData} = this.state;
 
     return (
-      <div className="app-container">
+      <div>
         <button onClick={this.addRow}>Add Row</button>
         <button onClick={this.addColumn}>Add Column</button>
         <button onClick={this.removeRow}>Remove Row</button>
         <button onClick={this.removeColumn}>Remove Column</button>
-        <input type="color" value={selectedColor} onChange={this.selectColor} />
-        <Table tableData={gridData} changeCellColor={this.changeCellColor} />
+        <Table tableData={this.state.gridData} />
       </div>
     );
   }
