@@ -1,76 +1,104 @@
 import React, { Component } from 'react';
 import Table from './table';
-import TableRow from './tableRow';
+import TableRow from './tableRow'
 import TableCell from './tableCell';
 
 class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: 1,
-      columns: 1,
-      gridData: [['']],
-      selectedColor: '',
+      row:1, column:1,
+      gridData: [['']], // array representing the grid
+      selectedColor: '', // the selected color
     };
   }
 
+  //adding a row to the grid
   addRow = () => {
+    //prevState is before the state is altered. u can update as you go along the code with this
     this.setState(prevState => {
-      const { gridData, columns } = prevState;
-      const newRow = Array(columns).fill('');
-      const updatedGridData = [...gridData, newRow];
+      //here, gridData means before the grid is altered
+      const { gridData } = prevState;
+      const newRow = Array(gridData[0].length).fill(''); // Create a new row with empty cells
+      const updatedGridData = [...gridData, newRow]; // Add the new row to the gridData array
       return {
-        gridData: updatedGridData,
+        rows: prevState.rows+1, //this will add 1 to the array
+        gridData: updatedGridData, //since the before array has been changed, this will update the grid
       };
     });
   };
 
+  //adding new column to the grid
   addColumn = () => {
     this.setState(prevState => {
-      const { gridData, rows } = prevState;
-      const updatedGridData = gridData.map(row => [...row, '']);
+      const { gridData } = prevState;
+      const updatedGridData = gridData.map(row => [...row, '']); // Add an empty cell to each row
       return {
         gridData: updatedGridData,
       };
     });
   };
 
+  //remove the last row from the grid
   removeRow = () => {
     this.setState(prevState => {
       const { gridData } = prevState;
-      if (gridData.length > 1) {
-        const updatedGridData = gridData.slice(0, -1);
+      if (gridData.length > 1 || prevState.rows>1) { //check if grid has more than one row or if the prevState has more than 1
+        const updatedGridData = gridData.slice(0, -1); // Remove the last row from gridData
         return {
+          rows: prevState.rows-1, //This decreases the number of rows by 1
           gridData: updatedGridData,
         };
       }
-      return null;
+      return null; //if there's one row or the number of rows is already one
     });
   };
 
+  //remove last column from grid
   removeColumn = () => {
-    this.setState(prevState => {
-      const { gridData } = prevState;
-      if (gridData[0].length > 1) {
-        const updatedGridData = gridData.map(row => row.slice(0, -1));
+    this.setState(prevState => { //this makes state into prevState
+      const { gridData } = prevState; 
+      if (gridData[0].length > 1) {  //checks if the grid has more than one column
+        const updatedGridData = gridData.map(row => row.slice(0, -1)); // Remove the last column from each row
         return {
           gridData: updatedGridData,
         };
+      } else{
+      return null; //if there's only one column
       }
-      return null;
+    });
+  };
+
+  //when the user picks a new color, change the selected color to the one the user wants
+  selectColor = event => {
+    const selectedColor = event.target.value;
+    this.setState({ selectedColor });
+  };
+
+
+  changeCellColor = (rowIndex, cellIndex) => {
+    this.setState(prevState => { //updates state using prevState
+      const { gridData, selectedColor } = prevState; //
+      const updatedGridData = [...gridData]; //this creates a copy of the gridData
+      //this below will update the grid and the color of the row and cell with the users selected color
+      updatedGridData[rowIndex][cellIndex] = selectedColor;
+      return {
+        gridData: updatedGridData, //returns the updated gridData
+      };
     });
   };
 
   render() {
-    const {gridData} = this.state;
+    const { gridData, selectedColor } = this.state;
 
     return (
-      <div>
+      <div className="app-container">
         <button onClick={this.addRow}>Add Row</button>
         <button onClick={this.addColumn}>Add Column</button>
         <button onClick={this.removeRow}>Remove Row</button>
         <button onClick={this.removeColumn}>Remove Column</button>
-        <Table tableData={this.state.gridData} />
+        <input type="color" value={selectedColor} onChange={this.selectColor} />
+        <Table tableData={gridData} changeCellColor={this.changeCellColor} />
       </div>
     );
   }
