@@ -1,28 +1,29 @@
-/*
-remember that the format for writing jsx code is:
-1)IMPORT
-2)CREATE CLASS
-3)RENDERING
-4)EXPORT
-*/
+import React, { Component } from "react";
 
+class TableCell extends Component {
+  render() {
+    const {
+      cellColor,
+      rowNumber,
+      columnNumber,
+      cellClick,
+      onMouseDown,
+      onMouseOver,
+    } = this.props;
 
-//start off with import
-import React, {Component, ReactPropTypes} from 'react';
-
-//createing class
-class TableCell extends Component{
-    constructor(props){ //creating and defining cell propType 
-        super(props)  //this allows the cell to be interacted with
-    }
-
-    //rendering
-    render(){
-        return(<span className='Cell'></span>)
-        //the <span> element is used to group the Cell class type so that ot can
-        //be easier to acess and tyle with css as a whole component/ tag/class for it
-    }
+    return (
+      <td
+        className="table-cell"
+        style={{ backgroundColor: cellColor }}
+        //cellClick is from a parent component which is triggered when the td element is clicked(because of onClick)
+        onClick={() => cellClick(rowNumber, columnNumber)}
+        //when the mouse is held down/pressed down on the td elem, 
+        onMouseDown={() => onMouseDown(rowNumber, columnNumber)}
+        //this below happens when the mouse is moving over the element
+        onMouseOver={() => onMouseOver(rowNumber, columnNumber)}
+      ></td>
+    );
+  }
 }
 
-//exporting
-export default TableCell
+export default TableCell;

@@ -1,7 +1,7 @@
 // import React, {Component, ReactPropTypes} from 'react';
-// import App from './App';
-// import Table from './table';
-// import tableRow from './tableRow';
-// import tableCell from './tableCell';
+// import App from './App.jsx';
+// import Table from './table.jsx';
+// import tableRow from './tableRow.jsx';
+// import tableCell from './tableCell.jsx';
 
 

@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
-import TableCell from './TableCell';
+import TableCell from './tableCell';
 
 // Defining a class component named TableRow
 class TableRow extends Component {
     constructor(props){
         super(props);
+        this.state={
+            rows:[],
+        }
     }
+
+     addRow = () => {
+        const {rows} = this.state;
+         for(let i=0; i <rows; i++){
+            rows.push(1); 
+        }
+    }
+
 
 render() {
     const { rowData } = this.props; // referencing the rowData prop
-
     //add row function
-    addRow = () =>{
-        for(let i=0; i <this.state.rows; i++){
-            rows.push(1); 
-            }
-    }
-
+    
     //update the grid
-
 
     return (
         // Rendered content is wrapped in a <tr> element representing a table row
