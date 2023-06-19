@@ -1,20 +1,12 @@
-import logo from './logo.svg';
+
+import React from 'react';
 import './App.css';
-import React, {Component, ReactPropTypes} from 'react';
-import AppComponent from './Component/AppComponent';
-import table from './Component/table';
-import tableRow from './Component/tableRow';
-import tableCell from './Component/tableCell';
-
-
+import AppComponent from './Components/AppComponent';
 
 function App() {
   return (
     <div className="App">
-      <AppComponent/>
-      <table/>
-      <tableRow/>
-      <tableCell/>
+      <AppComponent />
     </div>
   );
 }
