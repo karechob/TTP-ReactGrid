@@ -16,7 +16,7 @@ addRow = () => {
     //this below adds an empty cell to each row. ...row makes a copy of the array, and the '' adds an empty string
     const updateGrid = prevState.gridData.map((row) => [...row, '']);
       return {
-        rows: prevState+1 //increment the number of rows by 1
+        rows: prevState.rows+1, //increment the number of rows by 1
         //the ...prevState refers to the array from the original array, before it was edited
         gridData: [...prevState,gridData, newRow] //adds the new row to the gridData
       }
