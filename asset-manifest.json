@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/grid-app/static/css/main.444535e5.css",
-    "main.js": "/grid-app/static/js/main.a3c9077c.js",
-    "static/js/787.e728785f.chunk.js": "/grid-app/static/js/787.e728785f.chunk.js",
-    "index.html": "/grid-app/index.html",
-    "main.444535e5.css.map": "/grid-app/static/css/main.444535e5.css.map",
-    "main.a3c9077c.js.map": "/grid-app/static/js/main.a3c9077c.js.map",
-    "787.e728785f.chunk.js.map": "/grid-app/static/js/787.e728785f.chunk.js.map"
+    "main.css": "/TTP-ReactGrid/static/css/main.444535e5.css",
+    "main.js": "/TTP-ReactGrid/static/js/main.6123c73a.js",
+    "static/js/787.e728785f.chunk.js": "/TTP-ReactGrid/static/js/787.e728785f.chunk.js",
+    "index.html": "/TTP-ReactGrid/index.html",
+    "main.444535e5.css.map": "/TTP-ReactGrid/static/css/main.444535e5.css.map",
+    "main.6123c73a.js.map": "/TTP-ReactGrid/static/js/main.6123c73a.js.map",
+    "787.e728785f.chunk.js.map": "/TTP-ReactGrid/static/js/787.e728785f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.444535e5.css",
-    "static/js/main.a3c9077c.js"
+    "static/js/main.6123c73a.js"
   ]
 }
