@@ -29,7 +29,7 @@ class TableCell extends Component {
         //this below happens when the mouse is moving over the element
         onMouseOver={() => onMouseOver(rowNumber, columnNumber)}
         onMouseUp={() => onMouseUp()}
-      >table cell</td>
+      ></td>
     );
   }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Table from './table';
 import TableRow from './tableRow'
 import TableCell from './tableCell';
@@ -10,7 +9,7 @@ class AppComponent extends Component {
     this.state = {
       rows:1, column:1,
       gridData: [['']], // array representing the grid
-      selectedColor: '#FF0000', // the selected color
+      selectedColor: '#788BE8', // the selected color
       isDragging: false, // Flag to indicate if dragging is in progress
       startCell: null, // Starting cell for dragging
     };
@@ -149,7 +148,7 @@ class AppComponent extends Component {
 
     const updatedGrid = grid.map((row) =>
       row.map((cell) => {
-        if (cell === "" || cell === "white") return color;
+        if (cell === "" || cell === "transparent") return color;
         return cell;
       })
     );
@@ -178,10 +177,10 @@ class AppComponent extends Component {
   // Method to clear the color of all cells
   clearAllCells() {
     const grid = this.state.gridData;
-    const color = "white";
+    const color = "transparent";
     const updatedGrid = grid.map((row) =>
       row.map((cell) => {
-        if (cell !== "white") return color;
+        if (cell !== "transparent") return color;
         return cell;
       })
     );
@@ -196,6 +195,7 @@ class AppComponent extends Component {
 
     return (
       <div className="app-container">
+        <h1 className='title'>Grid</h1>
         <button onClick={this.addRow}>Add Row</button>
         <button onClick={this.addColumn}>Add Column</button>
         <button onClick={this.removeRow}>Remove Row</button>
@@ -203,7 +203,10 @@ class AppComponent extends Component {
         <button onClick={this.colorAllCells}>Color All Cells</button>
         <button onClick={this.clearAllCells}>Clear All Cells</button>
         <button onClick={this.colorUncolorCells}>Color Rest of Cells</button>
-        <input type="color" value={selectedColor} onChange={this.selectColor} />
+        <h3 className="color-picker">
+        ☆ Pick a Color<input type="color" value={selectedColor} onChange={this.selectColor}/>☆
+        </h3>
+        
         
         <Table 
             tableData={gridData} 
@@ -213,6 +216,7 @@ class AppComponent extends Component {
             changeCellColor={this.changeCellColor}
             onMouseUp={this.onMouseUp} 
             />
+         
       </div>
     );
   }
