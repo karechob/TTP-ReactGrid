@@ -10,31 +10,39 @@ class TableRow extends Component {
         }
     }
 
-     addRow = () => {
-        const {rows} = this.state;
-         for(let i=0; i <rows; i++){
-            rows.push(1); 
-        }
-    }
+    //  addRow = () => {
+    //     const {rows} = this.state;
+    //     const newRows = [...rows, ''];
+    //      for(let i=0; i <rows; i++){
+    //         newRows.push('');
+    //     }
+    //     this.setState({
+    //         rows: newRows
+    //       })
+    // }
 
-
-render() {
-    const { rowData } = this.props; // referencing the rowData prop
-    //add row function
+    render() {
+        const { rowNumber, rowData } = this.props; // Referencing the rowData prop
+    console.log(rowData, 'this is row data')
     
-    //update the grid
-
-    return (
-        // Rendered content is wrapped in a <tr> element representing a table row
-        <tr>
-            {rowData.map((cellData, cellIndex) => (
-                // For each cellData, render a <td> element
-                // Set the key attribute to cellIndex
-                <td key={cellIndex}>{cellData}</td>
+        return (
+            <>
+          <tr>
+            {rowData.map((cellColor, cellIndex) => (
+              <TableCell 
+                key={cellIndex} 
+                onClick={this.props.onClick} 
+                rowNumber={rowNumber} 
+                columnNumber={cellIndex} 
+                onMouseOver={this.props.onMouseOver} 
+                onMouseDown={this.props.onMouseDown} 
+                onMouseUp={this.props.onMouseUp}
+                cellColor={cellColor}></TableCell>
             ))}
-        </tr>
-    );
+          </tr>
+          </>
+        );
+      }
     }
-}
 
-export default TableRow;
+    export default TableRow;

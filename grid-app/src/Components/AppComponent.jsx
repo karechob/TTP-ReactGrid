@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Table from './table';
 import TableRow from './tableRow'
 import TableCell from './tableCell';
@@ -7,9 +8,9 @@ class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      row:1, column:1,
+      rows:1, column:1,
       gridData: [['']], // array representing the grid
-      selectedColor: '', // the selected color
+      selectedColor: '#FF0000', // the selected color
       isDragging: false, // Flag to indicate if dragging is in progress
       startCell: null, // Starting cell for dragging
     };
@@ -21,10 +22,21 @@ class AppComponent extends Component {
     this.removeRow = this.removeRow.bind(this);
     this.removeColumn = this.removeColumn.bind(this);
     this.changeCellColor = this.changeCellColor.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.removeRow = this.removeRow.bind(this);
+    this.removeColumn = this.removeColumn.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.clearAllCells = this.clearAllCells.bind(this);
+    this.colorAllCells = this.colorAllCells.bind(this);
+    this.colorUncolorCells =  this.colorUncolorCells.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
+ 
   }
 
   
   //adding a row to the grid
+  //this.addRow is refered to a hander aka anything that modifies the state
   addRow = () => {
     //prevState is before the state is altered. u can update as you go along the code with this
     this.setState(prevState => {
@@ -32,8 +44,10 @@ class AppComponent extends Component {
       const { gridData } = prevState;
       const newRow = Array(gridData[0].length).fill(''); // Create a new row with empty cells
       const updatedGridData = [...gridData, newRow]; // Add the new row to the gridData array
+      console.log(newRow);
       return {
-        rows: prevState.rows+1, //this will add 1 to the array
+        rows: updatedGridData.length,
+        // another way of doing ^ rows: prevState.rows+1, //this will add 1 to the array
         gridData: updatedGridData, //since the before array has been changed, this will update the grid
       };
     });
@@ -44,6 +58,7 @@ class AppComponent extends Component {
     this.setState(prevState => {
       const { gridData } = prevState;
       const updatedGridData = gridData.map(row => [...row, '']); // Add an empty cell to each row
+      console.log(updatedGridData);
       return {
         gridData: updatedGridData,
       };
@@ -90,14 +105,91 @@ class AppComponent extends Component {
   changeCellColor = (rowIndex, cellIndex) => {
     this.setState(prevState => { //updates state using prevState
       const { gridData, selectedColor } = prevState; //
-      const updatedGridData = [...gridData]; //this creates a copy of the gridData
+      const updatedGridData = gridData.map(row => [...row]); //this clones gridData
       //this below will update the grid and the color of the row and cell with the users selected color
+      console.log(updatedGridData, rowIndex, cellIndex, selectedColor)
       updatedGridData[rowIndex][cellIndex] = selectedColor;
       return {
         gridData: updatedGridData, //returns the updated gridData
       };
     });
   };
+
+  onMouseDown(rowNumber, columnNumber) {
+    this.setState({
+      isDragging: true, //isDragging would be true since we are pressing down the mouse
+      startCell: [rowNumber, columnNumber] //startCell would have the value of the current cell that is being pressed down
+    })
+  }
+  onMouseUp() {
+    this.setState({
+      isDragging: false, //isDragging would be false since we are pressing down the mouse
+    })
+  }
+
+  //
+  onClick(rowNumber, columnNumber) {
+    //selectedColor
+
+    this.changeCellColor(rowNumber, columnNumber) 
+
+  }
+  
+  onMouseOver(rowNumber, columnNumber) {
+    
+    if(this.state.isDragging===true){
+      //call the method because everything about moving arouond mouse is already there
+      this.changeCellColor(rowNumber, columnNumber);
+    }
+  }
+  
+  colorUncolorCells() {
+    const grid = this.state.gridData;
+    const color = this.state.selectedColor;
+
+    const updatedGrid = grid.map((row) =>
+      row.map((cell) => {
+        if (cell === "" || cell === "white") return color;
+        return cell;
+      })
+    );
+    
+    this.setState({ gridData: updatedGrid });
+  }
+
+  // Method to color all cells with the selected color
+  colorAllCells() {
+    const grid = this.state.gridData;
+    const color = this.state.selectedColor;
+
+    const updatedGrid = grid.map(function (row) {
+      const updatedRow = row.map(function () {
+        return color;
+      });
+
+      return updatedRow;
+    });
+
+    this.setState({
+      gridData: updatedGrid,
+    });
+  }
+
+  // Method to clear the color of all cells
+  clearAllCells() {
+    const grid = this.state.gridData;
+    const color = "white";
+    const updatedGrid = grid.map((row) =>
+      row.map((cell) => {
+        if (cell !== "white") return color;
+        return cell;
+      })
+    );
+    this.setState({
+      gridData: updatedGrid,
+    });
+  }
+
 
   render() {
     const { gridData, selectedColor } = this.state;
@@ -108,8 +200,19 @@ class AppComponent extends Component {
         <button onClick={this.addColumn}>Add Column</button>
         <button onClick={this.removeRow}>Remove Row</button>
         <button onClick={this.removeColumn}>Remove Column</button>
+        <button onClick={this.colorAllCells}>Color All Cells</button>
+        <button onClick={this.clearAllCells}>Clear All Cells</button>
+        <button onClick={this.colorUncolorCells}>Color Rest of Cells</button>
         <input type="color" value={selectedColor} onChange={this.selectColor} />
-        <Table tableData={gridData} changeCellColor={this.changeCellColor} />
+        
+        <Table 
+            tableData={gridData} 
+            onClick={this.onClick} 
+            onMouseDown={this.onMouseDown} 
+            onMouseOver={this.onMouseOver} 
+            changeCellColor={this.changeCellColor}
+            onMouseUp={this.onMouseUp} 
+            />
       </div>
     );
   }
