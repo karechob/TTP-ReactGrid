@@ -203,12 +203,12 @@ class AppComponent extends Component {
         <button onClick={this.colorAllCells}>Color All Cells</button>
         <button onClick={this.clearAllCells}>Clear All Cells</button>
         <button onClick={this.colorUncolorCells}>Color Rest of Cells</button>
-        <h3 className="color-picker">
+        <p className="color-picker">
         ☆ Pick a Color<input type="color" value={selectedColor} onChange={this.selectColor}/>☆
-        </h3>
+        </p>
         
-        
-        <Table 
+        <div className='grid'>
+        <Table
             tableData={gridData} 
             onClick={this.onClick} 
             onMouseDown={this.onMouseDown} 
@@ -216,7 +216,7 @@ class AppComponent extends Component {
             changeCellColor={this.changeCellColor}
             onMouseUp={this.onMouseUp} 
             />
-         
+         </div>
       </div>
     );
   }
